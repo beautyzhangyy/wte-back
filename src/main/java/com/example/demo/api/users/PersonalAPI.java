@@ -24,4 +24,11 @@ public class PersonalAPI {
         Result result = ResultGenerator.genSuccessResult();
         return  result;
     }
+
+    @PostMapping("/register")
+    public Result<String> register(@RequestBody @Valid UserLoginParam userLoginParam) {
+
+        Result result = ResultGenerator.genSuccessResult();
+        return  result;
+    }
 }
