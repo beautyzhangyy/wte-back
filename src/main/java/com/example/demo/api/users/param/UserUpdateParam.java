@@ -1,18 +1,16 @@
-package com.example.demo.entity;
+package com.example.demo.api.users.param;
 
 import lombok.Data;
 
-@Data
-public class Userinfo {
-    private int userId;
+import java.io.Serializable;
 
-    private String userName;
+@Data
+public class UserUpdateParam implements Serializable {
+    private int userId;
 
     private String password;
 
     private String nickname;
-
-    private String headPic;
 
     private String userAddress;
 
