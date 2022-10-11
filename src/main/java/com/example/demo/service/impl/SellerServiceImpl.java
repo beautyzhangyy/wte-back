@@ -21,8 +21,13 @@ public class SellerServiceImpl implements SellerService {
         if(sellerinfoMapper.selectBySellerName(sellerName) != null) {
             return ServiceResultEnum.SAME_LOGIN_NAME_EXIST.getResult();
         }
-        Sellerinfo sellerinfo = sellerinfoMapper.sellerRegister(sellerName,sellerPassword,storeName,
-                sellerAddress,sellerPhoneNum,sellTime);
+        Sellerinfo sellerinfo = new Sellerinfo();
+        sellerinfo.setSellerName(sellerName);
+        sellerinfo.setSellerPassword(sellerPassword);
+        sellerinfo.setStoreName(storeName);
+        sellerinfo.setSellerAddress(sellerAddress);
+        sellerinfo.setSellerPhoneNum(sellerPhoneNum);
+        sellerinfo.setSellTime(sellTime);
         if (sellerinfoMapper.insert(sellerinfo) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }

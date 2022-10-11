@@ -11,8 +11,8 @@
         <result column="seller_address" jdbcType="VARCHAR" property="sellerAddress" />
         <result column="seller_phone_num" jdbcType="VARCHAR" property="sellerPhoneNum" />
         <result column="store_pic" jdbcType="VARCHAR" property="storePic" />
-        <result column="sell_time" jdbcType="VARCHAR" property="sell_time" />
-        <result column="" jdbcType="VARCHAR" property="store_licence" />
+        <result column="sell_time" jdbcType="VARCHAR" property="sellTime" />
+        <result column="store_licence" jdbcType="VARCHAR" property="storeLicence" />
     </resultMap>
     <sql id="Base_Column_List">
         seller_id, seller_name, seller_password, store_name, seller_head_pic,seller_address,
@@ -25,6 +25,14 @@ seller_phone_num,store_pic,sell_time,store_licence
         from sellerinfo
         where seller_name = #{sellerName,jdbcType=VARCHAR} AND password=#{sellerPassword,jdbcType=VARCHAR}
     </select>
+
+
+    <select id="sellerRegister" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        where TRUE
+    </select>
+
 
     <select id="selectByPrimarySellerKey" parameterType="int" resultMap="BaseResultMap">
         select
