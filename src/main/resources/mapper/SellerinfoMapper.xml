@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.SellerinfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Sellerinfo">
+        <id column="seller_id" jdbcType="INTEGER" property="sellerId" />
+        <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+        <result column="seller_password" jdbcType="VARCHAR" property="sellerPassword" />
+        <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+        <result column="seller_head_pic" jdbcType="VARCHAR" property="sellerHeadPic" />
+        <result column="seller_address" jdbcType="VARCHAR" property="sellerAddress" />
+        <result column="seller_phone_num" jdbcType="VARCHAR" property="sellerPhoneNum" />
+        <result column="store_pic" jdbcType="VARCHAR" property="storePic" />
+        <result column="sell_time" jdbcType="VARCHAR" property="sell_time" />
+        <result column="" jdbcType="VARCHAR" property="store_licence" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        seller_id, seller_name, seller_password, store_name, seller_head_pic,seller_address,
+seller_phone_num,store_pic,sell_time,store_licence
+    </sql>
+
+    <select id="sellerLogin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sellerinfo
+        where seller_name = #{sellerName,jdbcType=VARCHAR} AND password=#{sellerPassword,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPrimarySellerKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sellerinfo
+        where seller_id = #{sellerId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectBySellerName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sellerinfo
+        where seller_name = #{sellerName,jdbcType=INTEGER}
+    </select>
+
+    <select id="getSellerList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sellerinfo
+        where 1=1
+        order by seller_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.entity.Sellerinfo">
+        insert into sellerinfo (seller_name, seller_password, store_name,seller_address,seller_phone_num,sell_time)
+        values (#{sellerName,jdbcType=VARCHAR}, #{sellerPassword,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR},
+                #{sellerAddress,jdbcType=VARCHAR},#{sellerPhoneNum,jdbcType=VARCHAR},#{sellTime,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateSellerInfo" parameterType="com.example.demo.entity.Sellerinfo">
+        update sellerinfo
+        set seller_password = #{sellerPassword,jdbcType=VARCHAR},
+            seller_address = #{sellerAddress,jdbcType=VARCHAR},
+            seller_phone_num = #{sellerPhoneNum,jdbcType=VARCHAR},
+            sell_time = #{sellTime,jdbcType=VARCHAR},
+            store_name = #{storeName,jdbcType=VARCHAR}
+        where seller_id = #{sellerId,jdbcType=INTEGER}
+    </update>
+
+    <update id="uploadHead">
+        update sellerinfo
+        set seller_head_pic = #{sellerHeadPic,jdbcType=VARCHAR}
+        where seller_id = #{sellerId,jdbcType=INTEGER}
+    </update>
+
+</mapper>

@@ -22,5 +22,5 @@ public class Sellerinfo {
 
     private String sellTime;
 
-    private String store_licence;
+    private String storeLicence;
 }
