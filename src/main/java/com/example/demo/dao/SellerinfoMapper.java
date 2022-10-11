@@ -14,7 +14,7 @@ import java.util.List;
 public interface SellerinfoMapper {
     int insert(Sellerinfo record);
 
-    Sellerinfo sellerLogin(@Param("sellerName") String sellerName, @Param("sellPassword") String sellerPassword);
+    Sellerinfo sellerLogin(@Param("sellerName") String sellerName, @Param("sellerPassword") String sellerPassword);
 
     Sellerinfo selectByPrimarySellerKey(int sellerId);
 
