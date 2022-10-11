@@ -23,7 +23,7 @@ seller_phone_num,store_pic,sell_time,store_licence
         select
         <include refid="Base_Column_List" />
         from sellerinfo
-        where seller_name = #{sellerName,jdbcType=VARCHAR} AND sellerPassword=#{sellerPassword,jdbcType=VARCHAR}
+        where seller_name = #{sellerName,jdbcType=VARCHAR} AND seller_password=#{sellerPassword,jdbcType=VARCHAR}
     </select>
 
     <select id="selectByPrimarySellerKey" parameterType="int" resultMap="BaseResultMap">
