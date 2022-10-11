@@ -21,4 +21,6 @@ public class Sellerinfo {
     private String storePic;
 
     private String sellTime;
+
+    private String store_licence;
 }
