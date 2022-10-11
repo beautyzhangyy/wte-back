@@ -45,18 +45,18 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Boolean updateSellerInfo(SellerUpdateParam updateParam) {
-        int sellerId = updateParam.getSellerId();
+    public Boolean updateSellerInfo(SellerUpdateParam sellerUpdateParam) {
+        int sellerId = sellerUpdateParam.getSellerId();
         Sellerinfo sellerinfo = sellerinfoMapper.selectByPrimarySellerKey(sellerId);
         if (sellerinfo == null) {
             WteException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
             return false;
         }
-        sellerinfo.setSellerPassword(updateParam.getSellerPassword());
-        sellerinfo.setStoreName(updateParam.getStoreName());
-        sellerinfo.setSellerAddress(updateParam.getSellerAddress());
-        sellerinfo.setSellerPhoneNum(updateParam.getSellerPhoneNum());
-        sellerinfo.setSellTime(updateParam.getSellTime());
+        sellerinfo.setSellerPassword(sellerUpdateParam.getSellerPassword());
+        sellerinfo.setStoreName(sellerUpdateParam.getStoreName());
+        sellerinfo.setSellerAddress(sellerUpdateParam.getSellerAddress());
+        sellerinfo.setSellerPhoneNum(sellerUpdateParam.getSellerPhoneNum());
+        sellerinfo.setSellTime(sellerUpdateParam.getSellTime());
         if (sellerinfoMapper.updateSellerInfo(sellerinfo) > 0) {
             return true;
         }
