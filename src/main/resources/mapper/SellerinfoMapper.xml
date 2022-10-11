@@ -26,14 +26,6 @@ seller_phone_num,store_pic,sell_time,store_licence
         where seller_name = #{sellerName,jdbcType=VARCHAR} AND password=#{sellerPassword,jdbcType=VARCHAR}
     </select>
 
-
-    <select id="sellerRegister" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        where TRUE
-    </select>
-
-
     <select id="selectByPrimarySellerKey" parameterType="int" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

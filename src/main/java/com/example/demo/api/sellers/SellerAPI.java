@@ -2,7 +2,6 @@ package com.example.demo.api.sellers;
 
 import com.example.demo.api.sellers.param.SellerLoginParam;
 import com.example.demo.api.sellers.param.SellerUpdateParam;
-import com.example.demo.api.sellers.param.SellerRegisterParam;
 import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Sellerinfo;
 import com.example.demo.service.SellerService;
@@ -36,9 +35,9 @@ public class SellerAPI {
     }
 
     @PostMapping("/register")
-    public Result<String> sellerRegister(@RequestBody @Valid SellerRegisterParam sellerRegisterParam) {
-        String registerResult = sellerService.sellerRegister(sellerRegisterParam.getSellerName(), sellerRegisterParam.getSellerPassword(),
-                sellerRegisterParam.getStoreName(),sellerRegisterParam.getSellerAddress(),sellerRegisterParam.getSellerPhoneNum(),sellerRegisterParam.getSellTime());
+    public Result<String> sellerRegister(@RequestBody @Valid SellerLoginParam sellerLoginParam) {
+        String registerResult = sellerService.sellerRegister(sellerLoginParam.getSellerName(), sellerLoginParam.getSellerPassword(),
+                sellerLoginParam.getStoreName(),sellerLoginParam.getSellerAddress(),sellerLoginParam.getSellerPhoneNum(),sellerLoginParam.getSellTime());
         //注册成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
             return ResultGenerator.genSuccessResult();
