@@ -25,7 +25,7 @@ public interface SellerService {
     /**
      * 商家修改信息
      */
-    Boolean updateSellerInfo(SellerUpdateParam sellerUpdateParam);
+    Boolean updateSellerInfo(SellerUpdateParam updateParam);
 
     /**
      * 商家修改信息
