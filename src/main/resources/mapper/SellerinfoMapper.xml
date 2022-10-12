@@ -57,7 +57,7 @@ seller_phone_num,store_pic,sell_time,store_licence
                 #{sellerAddress,jdbcType=VARCHAR},#{sellerPhoneNum,jdbcType=VARCHAR},#{sellTime,jdbcType=VARCHAR})
     </insert>
 
-    <update id="updateSellerInfo" parameterType="com.example.demo.entity.Sellerinfo">
+    <update id="updateInfo" parameterType="com.example.demo.entity.Sellerinfo">
         update sellerinfo
         set seller_password = #{sellerPassword,jdbcType=VARCHAR},
             seller_address = #{sellerAddress,jdbcType=VARCHAR},
