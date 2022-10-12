@@ -47,7 +47,7 @@ public class SellerAPI {
     }
 
     @PostMapping("/updateInfo")
-    public Result<String> updateInfo(@RequestBody @Valid SellerUpdateParam sellerUpdateParam) {
+    public Result<String> updateSellerInfo(@RequestBody @Valid SellerUpdateParam sellerUpdateParam) {
         Boolean flag = sellerService.updateSellerInfo(sellerUpdateParam);
         if (flag) {
             return ResultGenerator.genSuccessResult("修改成功");
