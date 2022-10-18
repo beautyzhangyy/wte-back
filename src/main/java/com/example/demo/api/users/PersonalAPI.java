@@ -24,10 +24,10 @@ public class PersonalAPI {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody @Valid UserLoginParam userLoginParam) {
+    public Result<String> login(@RequestBody @Valid UserLoginParam userLoginParam) {
         String loginResult = userService.login(userLoginParam.getUserName(), userLoginParam.getPassword());
         if (loginResult.contains("success")) {
-            int userId = Integer.parseInt(loginResult.substring(7));
+            int userId = Integer.valueOf(loginResult.substring(7));
             Userinfo userinfo = userService.getByUserId(userId);
             return ResultGenerator.genSuccessResult(userinfo);
         }
@@ -35,7 +35,7 @@ public class PersonalAPI {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody @Valid UserLoginParam userLoginParam) {
+    public Result<String> register(@RequestBody @Valid UserLoginParam userLoginParam) {
         String registerResult = userService.register(userLoginParam.getUserName(), userLoginParam.getPassword());
         //注册成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
@@ -46,7 +46,7 @@ public class PersonalAPI {
     }
 
     @PostMapping("/updateInfo")
-    public Result updateInfo(@RequestBody @Valid UserUpdateParam userUpdateParam) {
+    public Result<String> updateInfo(@RequestBody @Valid UserUpdateParam userUpdateParam) {
         Boolean flag = userService.updateUserInfo(userUpdateParam);
         if (flag) {
             return ResultGenerator.genSuccessResult("修改成功");
