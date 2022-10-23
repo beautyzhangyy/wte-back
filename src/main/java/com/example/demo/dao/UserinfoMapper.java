@@ -24,5 +24,5 @@ public interface UserinfoMapper {
 
     int updateInfo(Userinfo record);
 
-    String uploadHead(@Param("userId") int userId,@Param("headPic") String headPic);
+    int uploadHeadPic(Userinfo record);
 }

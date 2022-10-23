@@ -43,5 +43,5 @@ public interface UserService {
      * @Param userName
      * @Param password
      */
-
+    Boolean uploadHeadPic(Userinfo userinfo);
 }
