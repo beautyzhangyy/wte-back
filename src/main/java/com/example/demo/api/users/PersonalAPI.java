@@ -2,15 +2,20 @@ package com.example.demo.api.users;
 
 import com.example.demo.api.users.param.UserLoginParam;
 import com.example.demo.api.users.param.UserUpdateParam;
+import com.example.demo.common.Constants;
 import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Userinfo;
 import com.example.demo.service.UserService;
 import com.example.demo.util.Result;
 import com.example.demo.util.ResultGenerator;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * 用户-个人服务
@@ -52,6 +57,42 @@ public class PersonalAPI {
             return ResultGenerator.genSuccessResult("修改成功");
         }else {
             return ResultGenerator.genFailResult("修改失败");
+        }
+    }
+
+    @PostMapping("/uploadHeadPic")
+    public Result<String> uploadHeadPic(@RequestParam("file") MultipartFile file, @RequestParam("userName") String userName,@RequestParam("password") String password) {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String newFileName = userName + suffixName; // suffixName是后缀名，如 .png .jpg
+
+        File fileDirectory = new File(Constants.USER_HEAD_PIC_DIC);
+        //创建文件
+        File destFile = new File(Constants.USER_HEAD_PIC_DIC + newFileName);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+
+            Userinfo userinfo = new Userinfo();
+            userinfo.setUserName(userName);
+            userinfo.setPassword(password);
+            userinfo.setHeadPic(Constants.FRONT_USER_HEAD_PIC_URL + newFileName);
+
+            Boolean flag = userService.uploadHeadPic(userinfo);
+            if (flag) {
+                Result resultSuccess = ResultGenerator.genSuccessResult("上传头像成功");
+                resultSuccess.setData(Constants.FRONT_USER_HEAD_PIC_URL + newFileName);
+                return resultSuccess;
+            }else {
+                return ResultGenerator.genFailResult("上传头像失败");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultGenerator.genFailResult("文件上传失败");
         }
     }
 }

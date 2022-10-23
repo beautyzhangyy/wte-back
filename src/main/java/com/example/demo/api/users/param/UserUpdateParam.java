@@ -15,4 +15,5 @@ public class UserUpdateParam implements Serializable {
     private String userAddress;
 
     private String phoneNum;
+
 }

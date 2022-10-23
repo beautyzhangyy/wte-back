@@ -61,10 +61,10 @@
         where user_id = #{userId,jdbcType=INTEGER}
     </update>
 
-    <update id="uploadHead">
+    <update id="uploadHeadPic" parameterType="com.example.demo.entity.Userinfo">
         update userinfo
         set head_pic = #{headPic,jdbcType=VARCHAR}
-        where user_id = #{userId,jdbcType=INTEGER}
+        where user_name = #{userName,jdbcType=VARCHAR} AND password=#{password,jdbcType=VARCHAR}
     </update>
 
 </mapper>

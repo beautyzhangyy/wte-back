@@ -66,4 +66,12 @@ public class UserServiceImpl implements UserService {
     public Userinfo getByUserId(int userId) {
         return userinfoMapper.selectByPrimaryKey(userId);
     }
+
+    @Override
+    public Boolean uploadHeadPic(Userinfo userinfo) {
+        if (userinfoMapper.uploadHeadPic(userinfo) > 0) {
+            return true;
+        }
+        return false;
+    }
 }
