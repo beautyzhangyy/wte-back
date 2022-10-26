@@ -132,7 +132,7 @@ public class SellerAPI {
         }
     }
 
-    @PostMapping("/uploadSellerHeadPic")
+    @PostMapping("/uploadStoreLicence")
     public Result<String> uploadStoreLicence(@RequestParam("file") MultipartFile file, @RequestParam("sellerName") String sellerName, @RequestParam("sellerPassword") String password) {
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
