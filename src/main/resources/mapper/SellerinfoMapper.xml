@@ -73,4 +73,15 @@ seller_phone_num,store_pic,sell_time,store_licence
         where seller_name = #{sellerName,jdbcType=VARCHAR} AND seller_password=#{sellerPassword,jdbcType=VARCHAR}
     </update>
 
+    <update id="uploadStorePic" parameterType="com.example.demo.entity.Sellerinfo">
+        update sellerinfo
+        set store_pic = #{storePic,jdbcType=VARCHAR}
+        where seller_name = #{sellerName,jdbcType=VARCHAR} AND seller_password=#{sellerPassword,jdbcType=VARCHAR}
+    </update>
+
+    <update id="uploadStoreLicence" parameterType="com.example.demo.entity.Sellerinfo">
+        update sellerinfo
+        set store_licence = #{storeLicence,jdbcType=VARCHAR}
+        where seller_name = #{sellerName,jdbcType=VARCHAR} AND seller_password=#{sellerPassword,jdbcType=VARCHAR}
+    </update>
 </mapper>

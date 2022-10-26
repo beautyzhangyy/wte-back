@@ -25,4 +25,8 @@ public interface SellerinfoMapper {
     int updateSellerInfo(Sellerinfo record);
 
     int uploadSellerHeadPic(Sellerinfo record);
+
+    int uploadStorePic(Sellerinfo record);
+
+    int uploadStoreLicence(Sellerinfo record);
 }

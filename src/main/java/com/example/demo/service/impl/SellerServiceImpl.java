@@ -80,4 +80,20 @@ public class SellerServiceImpl implements SellerService {
         }
         return false;
     }
+
+    @Override
+    public Boolean uploadStorePic(Sellerinfo sellerinfo) {
+        if (sellerinfoMapper.uploadStorePic(sellerinfo) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean uploadStoreLicence(Sellerinfo sellerinfo) {
+        if (sellerinfoMapper.uploadStoreLicence(sellerinfo) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

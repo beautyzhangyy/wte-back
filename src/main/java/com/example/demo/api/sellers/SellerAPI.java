@@ -95,4 +95,76 @@ public class SellerAPI {
             return ResultGenerator.genFailResult("文件上传失败");
         }
     }
+
+    @PostMapping("/uploadStorePic")
+    public Result<String> uploadStorePic(@RequestParam("file") MultipartFile file, @RequestParam("sellerName") String sellerName, @RequestParam("sellerPassword") String password) {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String newFileName = sellerName + suffixName; // suffixName是后缀名，如 .png .jpg
+
+        File fileDirectory = new File(Constants.STORE_PIC_DIC);
+        //创建文件
+        File destFile = new File(Constants.STORE_PIC_DIC + newFileName);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+
+            Sellerinfo sellerinfo = new Sellerinfo();
+            sellerinfo.setSellerName(sellerName);
+            sellerinfo.setSellerPassword(password);
+            sellerinfo.setStorePic(Constants.FRONT_STORE_PIC_URL + newFileName);
+
+            Boolean flag = sellerService.uploadStorePic(sellerinfo);
+            if (flag) {
+                Result resultSuccess = ResultGenerator.genSuccessResult("上传头像成功");
+                resultSuccess.setData(Constants.FRONT_STORE_PIC_URL + newFileName);
+                return resultSuccess;
+            }else {
+                return ResultGenerator.genFailResult("上传头像失败");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultGenerator.genFailResult("文件上传失败");
+        }
+    }
+
+    @PostMapping("/uploadSellerHeadPic")
+    public Result<String> uploadStoreLicence(@RequestParam("file") MultipartFile file, @RequestParam("sellerName") String sellerName, @RequestParam("sellerPassword") String password) {
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String newFileName = sellerName + suffixName; // suffixName是后缀名，如 .png .jpg
+
+        File fileDirectory = new File(Constants.STORE_LICENCE_PIC_DIC);
+        //创建文件
+        File destFile = new File(Constants.STORE_LICENCE_PIC_DIC + newFileName);
+        try {
+            if (!fileDirectory.exists()) {
+                if (!fileDirectory.mkdir()) {
+                    throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
+                }
+            }
+            file.transferTo(destFile);
+
+            Sellerinfo sellerinfo = new Sellerinfo();
+            sellerinfo.setSellerName(sellerName);
+            sellerinfo.setSellerPassword(password);
+            sellerinfo.setStoreLicence(Constants.FRONT_STORE_LICENCE_PIC_URL + newFileName);
+
+            Boolean flag = sellerService.uploadStoreLicence(sellerinfo);
+            if (flag) {
+                Result resultSuccess = ResultGenerator.genSuccessResult("上传头像成功");
+                resultSuccess.setData(Constants.FRONT_STORE_LICENCE_PIC_URL + newFileName);
+                return resultSuccess;
+            }else {
+                return ResultGenerator.genFailResult("上传头像失败");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultGenerator.genFailResult("文件上传失败");
+        }
+    }
 }

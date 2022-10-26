@@ -12,5 +12,11 @@ public class Constants {
     public final static String SELLER_HEAD_PIC_DIC = "D:\\upload\\sellerHeadPic\\";
     public final static String FRONT_SELLER_HEAD_PIC_URL = "/upload/sellerHeadPic/";
 
+    public final static String STORE_PIC_DIC = "D:\\upload\\storePic\\";
+    public final static String FRONT_STORE_PIC_URL = "/upload/storePic/";
+
+    public final static String STORE_LICENCE_PIC_DIC = "D:\\upload\\storeLicence\\";
+    public final static String FRONT_STORE_LICENCE_PIC_URL = "/upload/storeLicence/";
+
     public final static String PRODUCT_PIC_DIC = "D:\\upload\\product\\";
 }

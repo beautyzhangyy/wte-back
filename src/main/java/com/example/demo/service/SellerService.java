@@ -37,4 +37,8 @@ public interface SellerService {
      * 商家上传头像
      */
     Boolean uploadSellerHeadPic(Sellerinfo sellerinfo);
+
+    Boolean uploadStorePic(Sellerinfo sellerinfo);
+
+    Boolean uploadStoreLicence(Sellerinfo sellerinfo);
 }
