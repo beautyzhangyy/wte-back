@@ -24,5 +24,5 @@ public interface SellerinfoMapper {
 
     int updateSellerInfo(Sellerinfo record);
 
-    String uploadSellerHead(@Param("sellerId") int sellerId,@Param("sellerHeadPic") String sellerHeadPic);
+    int uploadSellerHeadPic(Sellerinfo record);
 }

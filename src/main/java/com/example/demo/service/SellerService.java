@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.api.sellers.param.SellerUpdateParam;
 import com.example.demo.entity.Sellerinfo;
+import com.example.demo.entity.Userinfo;
 
 import java.util.List;
 
@@ -35,5 +36,5 @@ public interface SellerService {
     /**
      * 商家上传头像
      */
-
+    Boolean uploadSellerHeadPic(Sellerinfo sellerinfo);
 }

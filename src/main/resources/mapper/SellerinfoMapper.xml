@@ -67,10 +67,10 @@ seller_phone_num,store_pic,sell_time,store_licence
         where seller_id = #{sellerId,jdbcType=INTEGER}
     </update>
 
-    <update id="uploadHead">
+    <update id="uploadSellerHeadPic" parameterType="com.example.demo.entity.Sellerinfo">
         update sellerinfo
         set seller_head_pic = #{sellerHeadPic,jdbcType=VARCHAR}
-        where seller_id = #{sellerId,jdbcType=INTEGER}
+        where seller_name = #{sellerName,jdbcType=VARCHAR} AND seller_password=#{sellerPassword,jdbcType=VARCHAR}
     </update>
 
 </mapper>

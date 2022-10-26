@@ -5,6 +5,7 @@ import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.common.WteException;
 import com.example.demo.dao.SellerinfoMapper;
 import com.example.demo.entity.Sellerinfo;
+import com.example.demo.entity.Userinfo;
 import com.example.demo.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,13 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public Sellerinfo getBySellerId(int sellerId) {
         return sellerinfoMapper.selectByPrimarySellerKey(sellerId);
+    }
+
+    @Override
+    public Boolean uploadSellerHeadPic(Sellerinfo sellerinfo) {
+        if (sellerinfoMapper.uploadSellerHeadPic(sellerinfo) > 0) {
+            return true;
+        }
+        return false;
     }
 }

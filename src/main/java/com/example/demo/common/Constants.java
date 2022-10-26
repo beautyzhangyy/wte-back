@@ -9,5 +9,8 @@ public class Constants {
     public final static String USER_HEAD_PIC_DIC = "D:\\upload\\userHeadPic\\";
     public final static String FRONT_USER_HEAD_PIC_URL = "/upload/userHeadPic/";    // 回传至前端的用户头像URL前缀
 
+    public final static String SELLER_HEAD_PIC_DIC = "D:\\upload\\sellerHeadPic\\";
+    public final static String FRONT_SELLER_HEAD_PIC_URL = "/upload/sellerHeadPic/";
+
     public final static String PRODUCT_PIC_DIC = "D:\\upload\\product\\";
 }
