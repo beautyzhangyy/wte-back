@@ -7,19 +7,19 @@ import java.io.Serializable;
 
 @Data
 public class ProductUploadParam implements Serializable {
-    @NotEmpty(message = "产品名不能为空")
+    @NotEmpty(message = "商品名不能为空")
     private String productName;
 
-    @NotEmpty(message = "产品价格不能为空")
+    @NotEmpty(message = "商品价格不能为空")
     private float productPrice;
 
-    @NotEmpty(message = "产品介绍不能为空")
+    @NotEmpty(message = "商品介绍不能为空")
     private String productIntro;
 
-    @NotEmpty(message = "产品上架状态不能为空")
+    @NotEmpty(message = "商品上架状态不能为空")
     private int productStatus;
 
-    @NotEmpty(message = "产品库存不能为空")
+    @NotEmpty(message = "商品库存不能为空")
     private int productInventory;
 }
 

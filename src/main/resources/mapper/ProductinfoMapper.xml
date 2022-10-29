@@ -43,7 +43,7 @@
     </select>
 
     <insert id="insert" parameterType="com.example.demo.entity.Productinfo">
-        insert into ProductInfo (product_name, product_price, product_intro,product_status,product_inventory)
+        insert into productinfo (product_name, product_price, product_intro,product_status,product_inventory)
         values (#{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=FLOAT}, #{productIntro,jdbcType=VARCHAR},
                 #{productStatus,jdbcType=INTEGER},#{productInventory,jdbcType=INTEGER})
     </insert>
