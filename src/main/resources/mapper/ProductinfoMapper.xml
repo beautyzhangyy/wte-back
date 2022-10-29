@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ProductinfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Productinfo">
+        <id column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="product_price" jdbcType="FLOAT" property="productPrice" />
+        <result column="product_s_pic" jdbcType="VARCHAR" property="product_s_pic" />
+        <result column="product_b_pic" jdbcType="VARCHAR" property="product_b_pic" />
+        <result column="product_intro" jdbcType="VARCHAR" property="productName" />
+        <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+        <result column="product_inventory" jdbcType="INTEGER" property="productInventory" />
+        <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        product_id, product_name, product_price, product_s_pic, product_b_pic, product_intro,product_status,product_inventory, seller_id
+    </sql>
+
+    <select id="selectByPrimaryProductKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from productinfo
+        where product_id = #{productId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from productinfo
+        where product_name = #{productName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getProductList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from productinfo
+        where 1=1
+        order by product_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.entity.Productinfo">
+        insert into ProductInfo (product_name, product_price, product_intro,product_status,product_inventory)
+        values (#{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=FLOAT}, #{productIntro,jdbcType=VARCHAR},
+                #{productStatus,jdbcType=INTEGER},#{productInventory,jdbcType=INTEGER})
+    </insert>
+
+    <update id="updateProductInfo" parameterType="com.example.demo.entity.Productinfo">
+        update productinfo
+        set product_name = #{product_name,jdbcType=VARCHAR},
+            product_price = #{product_price,jdbcType=FLOAT},
+            product_intro = #{product_intro,jdbcType=VARCHAR},
+            product_status = #{product_status,jdbcType=INTEGER},
+            product_inventory = #{product_inventory,jdbcType=INTEGER},
+        where product_id = #{product_id,jdbcType=INTEGER}
+    </update>
+
+    <update id="uploadProductSPic">
+        update productinfo
+        set product_s_pic = #{product_s_pic,jdbcType=VARCHAR}
+        where product_id = #{product_id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

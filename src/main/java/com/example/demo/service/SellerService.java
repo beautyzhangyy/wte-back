@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.api.sellers.param.SellerUpdateParam;
 import com.example.demo.entity.Sellerinfo;
-import com.example.demo.entity.Userinfo;
 
 import java.util.List;
 
