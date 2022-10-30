@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 用户-个人服务
+ * 卖家
  * 注册、登录、修改头像、修改昵称、修改地址
  */
 @RestController

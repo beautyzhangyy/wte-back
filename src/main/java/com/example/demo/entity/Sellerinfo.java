@@ -20,7 +20,7 @@ public class Sellerinfo {
 
     private String storePic;
 
-    private String sellTime;
+    private String sellTime;    // 营业时间
 
     private String storeLicence;
 }

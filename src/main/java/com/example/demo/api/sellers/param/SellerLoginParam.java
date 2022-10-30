@@ -22,6 +22,5 @@ public class SellerLoginParam implements Serializable {
     @NotEmpty(message = "电话不能为空")
     private String sellerPhoneNum;
 
-    @NotEmpty(message = "营业时间不能为空")
     private String sellTime;
 }
