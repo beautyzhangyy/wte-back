@@ -6,8 +6,12 @@ import com.example.demo.common.WteException;
 import com.example.demo.dao.ProductinfoMapper;
 import com.example.demo.entity.Productinfo;
 import com.example.demo.service.ProductService;
+import com.example.demo.util.PageQueryUtil;
+import com.example.demo.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -16,18 +20,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductinfoMapper productinfoMapper;
 
     @Override
-    public String productUpload(String productName, float productPrice, String productIntro,
-                                int productInventory, int productStatus) {
-        if(productinfoMapper.selectByProductName(productName) != null) {
-            return ServiceResultEnum.SAME_LOGIN_NAME_EXIST.getResult();
+    public String productUpload(Productinfo productInfo) {
+        if (productinfoMapper.selectByProductNameAndSellerId(productInfo) != null) {
+            return ServiceResultEnum.PRODUCT_DUPLICATION.getResult();
         }
-        Productinfo productinfo = new Productinfo();
-        productinfo.setProductName(productName);
-        productinfo.setProductPrice(productPrice);
-        productinfo.setProductIntro(productIntro);
-        productinfo.setProductInventory(productInventory);
-        productinfo.setProductStatus(productStatus);
-        if (productinfoMapper.insert(productinfo) > 0) {
+
+        if (productinfoMapper.insert(productInfo) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();
@@ -64,5 +62,18 @@ public class ProductServiceImpl implements ProductService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public PageResult getProductsList(PageQueryUtil pageUtil) {
+        List<Productinfo> productsList = productinfoMapper.getProductsList(pageUtil);
+        int total = productinfoMapper.getProductsCount(pageUtil);
+        PageResult pageResult = new PageResult(productsList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
+    public PageResult getProductsBySearch(PageQueryUtil pageUtil) {
+        return null;
     }
 }

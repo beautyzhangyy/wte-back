@@ -1,6 +1,7 @@
 package com.example.demo.api.products.param;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -21,6 +22,10 @@ public class ProductUploadParam implements Serializable {
 
     @NotEmpty(message = "商品库存不能为空")
     private int productInventory;
+
+    @NotEmpty(message = "卖家ID缺失")
+    private int sellerId;
+
 }
 
 

@@ -9,15 +9,12 @@ public enum ServiceResultEnum {
 
     PARAM_ERROR("参数错误！"),
 
-    SAME_CATEGORY_EXIST("已存在同级同名的分类！"),
-
     SAME_LOGIN_NAME_EXIST("用户名已存在！"),
 
-    LOGIN_NAME_NULL("请输入登录名！"),
+    PRODUCT_DUPLICATION("商品名称重复"),
 
     LOGIN_NAME_IS_NOT_PHONE("请输入正确的手机号！"),
 
-    LOGIN_PASSWORD_NULL("请输入密码！"),
 
     SAME_INDEX_CONFIG_EXIST("已存在相同的首页配置项！"),
 

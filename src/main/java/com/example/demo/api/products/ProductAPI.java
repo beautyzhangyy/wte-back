@@ -6,6 +6,8 @@ import com.example.demo.common.Constants;
 import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Productinfo;
 import com.example.demo.service.ProductService;
+import com.example.demo.util.PageQueryUtil;
+import com.example.demo.util.PageResult;
 import com.example.demo.util.Result;
 import com.example.demo.util.ResultGenerator;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 产品信息
@@ -29,11 +34,18 @@ public class ProductAPI {
 
     @PostMapping("/upload")
     public Result<String> productUpload(@RequestBody @Valid ProductUploadParam productUploadParam) {
-        String registerResult = productService.productUpload(productUploadParam.getProductName(), productUploadParam.getProductPrice(),
-                productUploadParam.getProductIntro(),productUploadParam.getProductInventory(),productUploadParam.getProductStatus());
-        if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
-            return ResultGenerator.genSuccessResult();
-        }
+            Productinfo productinfo = new Productinfo();
+            productinfo.setProductName(productUploadParam.getProductName());
+            productinfo.setProductPrice(productUploadParam.getProductPrice());
+            productinfo.setProductIntro(productUploadParam.getProductIntro());
+            productinfo.setProductStatus(productUploadParam.getProductStatus());
+            productinfo.setProductInventory(productUploadParam.getProductInventory());
+            productinfo.setSellerId(productUploadParam.getSellerId());
+
+            String registerResult = productService.productUpload(productinfo);
+            if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
+                return ResultGenerator.genSuccessResult();
+            }
         return ResultGenerator.genFailResult(registerResult);
     }
 
@@ -71,15 +83,30 @@ public class ProductAPI {
 
             Boolean flag = productService.uploadProductSPic(productinfo);
             if (flag) {
-                Result resultSuccess = ResultGenerator.genSuccessResult("上传头像成功");
+                Result resultSuccess = ResultGenerator.genSuccessResult("上传商品图片成功");
                 resultSuccess.setData(Constants.FRONT_PRODUCT_PIC_URL + newFileName);
                 return resultSuccess;
             }else {
-                return ResultGenerator.genFailResult("上传头像失败");
+                return ResultGenerator.genFailResult("上传商品图片失败");
             }
         } catch (IOException e) {
             e.printStackTrace();
             return ResultGenerator.genFailResult("文件上传失败");
         }
+    }
+
+    @GetMapping("/ProductsAtLeast")
+    public Result<PageResult<List<Productinfo>>> productsAtLeast(@RequestParam(required = false) Integer pageNumber) {
+        Map params = new HashMap(8);
+        if (pageNumber == null || pageNumber < 1) {
+            pageNumber = 1;
+        }
+        params.put("page", pageNumber);
+        params.put("limit", Constants.PRODUCT_AT_LEAST_NUMBER);
+        //搜索上架状态下的商品
+        params.put("productStatus", Constants.SELL_STATUS_UP);
+        //封装商品数据
+        PageQueryUtil pageUtil = new PageQueryUtil(params);
+        return ResultGenerator.genSuccessResult(productService.getProductsList(pageUtil));
     }
 }

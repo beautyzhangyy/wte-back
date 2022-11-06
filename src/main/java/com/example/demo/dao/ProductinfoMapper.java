@@ -15,11 +15,16 @@ public interface ProductinfoMapper {
 
     Productinfo selectByPrimaryProductKey(int productId);
 
-    Productinfo selectByProductName(String productName);
+    Productinfo selectByProductNameAndSellerId(Productinfo record);
 
-    List<Productinfo> getProductList(PageQueryUtil pageUtil);
+    List<Productinfo> getProductsList(PageQueryUtil pageUtil);   // 获得指定页数、数量的商品数据
 
     int updateProductInfo(Productinfo record);
 
     int uploadProductSPic(Productinfo record);
+
+    int getProductsCount(PageQueryUtil pageUtil);   // 获得当前查询结果的数量
+
+    List<Productinfo> getProductsBySearch(PageQueryUtil pageUtil);  // 通过关键字查询的商品结果
+
 }
