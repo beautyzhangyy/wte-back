@@ -35,7 +35,11 @@
         select
         <include refid="Base_Column_List"/>
         from productinfo
-        where 1=1
+        <where>
+            <if test="productStatus!=null and productStatus!=''">
+                and product_status = #{productStatus}
+            </if>
+        </where>
         order by product_id desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
