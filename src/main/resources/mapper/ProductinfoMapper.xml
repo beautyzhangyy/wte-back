@@ -46,6 +46,24 @@
         </if>
     </select>
 
+    <select id="getProductsSellerList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from productinfo
+        <where>
+            <if test="productStatus!=null and productStatus!=''">
+                and product_status = #{productStatus}
+            </if>
+            <if test="sellerId!=null and sellerId!=''">
+                and seller_id = #{sellerId}
+            </if>
+        </where>
+        order by product_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
     <select id="getProductsCount" parameterType="Map" resultType="int">
         select count(*) from productinfo
         <where>

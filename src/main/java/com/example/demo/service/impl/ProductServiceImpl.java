@@ -73,6 +73,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public PageResult getProductsSellerList(PageQueryUtil pageUtil) {
+        List<Productinfo> productsList = productinfoMapper.getProductsSellerList(pageUtil);
+        int total = productinfoMapper.getProductsCount(pageUtil);
+        PageResult pageResult = new PageResult(productsList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
     public PageResult getProductsBySearch(PageQueryUtil pageUtil) {
         return null;
     }

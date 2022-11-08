@@ -19,5 +19,7 @@ public interface ProductService {
 
     PageResult getProductsList(PageQueryUtil pageUtil);
 
+    PageResult getProductsSellerList(PageQueryUtil pageUtil);
+
     PageResult getProductsBySearch(PageQueryUtil pageUtil);
 }

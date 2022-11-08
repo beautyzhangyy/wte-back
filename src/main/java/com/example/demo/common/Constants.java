@@ -23,6 +23,8 @@ public class Constants {
 
 
     public final static int PRODUCT_AT_LEAST_NUMBER = 10; // 首页新品展示数量
+    public final static int PRODUCT_ALL_UP_NUMBER = 50; // 商家管理数量
+    public final static int PRODUCT_ALL_OFF_NUMBER = 50; // 商家管理数量
     public final static int INTELLIGENT_RECOMMEND = 10; // 智能推荐展示数量
     public final static int RANDOM_RECOMMEND = 10; // 随机推荐展示数量
     public final static int GOODS_SEARCH_PAGE_LIMIT = 15; // 搜索分页默认条数

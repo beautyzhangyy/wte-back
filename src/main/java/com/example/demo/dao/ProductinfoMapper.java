@@ -27,4 +27,5 @@ public interface ProductinfoMapper {
 
     List<Productinfo> getProductsBySearch(PageQueryUtil pageUtil);  // 通过关键字查询的商品结果
 
+    List<Productinfo> getProductsSellerList(PageQueryUtil pageUtil);
 }
