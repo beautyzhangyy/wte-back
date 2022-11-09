@@ -50,7 +50,7 @@ public class ProductAPI {
     }
 
     @PostMapping("/updateInfo")
-    public Result<String> updateSellerInfo(@RequestBody @Valid ProductUpdateParam productUpdateParam) {
+    public Result<String> updateProductInfo(@RequestBody @Valid ProductUpdateParam productUpdateParam) {
         Boolean flag = productService.updateProductInfo(productUpdateParam);
         if (flag) {
             return ResultGenerator.genSuccessResult("修改成功");

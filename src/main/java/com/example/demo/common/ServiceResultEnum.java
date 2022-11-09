@@ -5,6 +5,8 @@ public enum ServiceResultEnum {
 
     SUCCESS("success"),
 
+    CART_REPEAT("repeat"),
+
     DATA_NOT_EXIST("未查询到记录！"),
 
     PARAM_ERROR("参数错误！"),

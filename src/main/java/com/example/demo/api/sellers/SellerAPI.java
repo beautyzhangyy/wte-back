@@ -5,7 +5,6 @@ import com.example.demo.api.sellers.param.SellerUpdateParam;
 import com.example.demo.common.Constants;
 import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Sellerinfo;
-import com.example.demo.entity.Userinfo;
 import com.example.demo.service.SellerService;
 import com.example.demo.util.Result;
 import com.example.demo.util.ResultGenerator;

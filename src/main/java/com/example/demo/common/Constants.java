@@ -31,4 +31,6 @@ public class Constants {
 
     public final static int SELL_STATUS_UP = 1; // 上架状态
     public final static int SELL_STATUS_OFF = 0; // 下架状态
+
+    public final static int CART_NUM_NULL = 0; // 下架状态
 }

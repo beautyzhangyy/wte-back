@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.CartinfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Cartinfo">
+        <id column="cart_id" jdbcType="INTEGER" property="cartId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        cart_id,user_id,product_id,num
+    </sql>
+
+    <select id="selectByPrimaryCartKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cartinfo
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserIdAndProductId" parameterType="com.example.demo.entity.Cartinfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cartinfo
+        where user_id = #{userId,jdbcType=INTEGER} and product_id = #{productId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.entity.Cartinfo">
+        insert into cartinfo (user_id, product_id, num)
+        values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER})
+    </insert>
+
+    <select id="getCartProductsUserList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cartinfo
+        <where>
+            <if test="num!=null and num!=''">
+                and num = #{num}
+            </if>
+            <if test="userId!=null and userId!=''">
+                and user_id = #{userId}
+            </if>
+        </where>
+        order by cart_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getProductsCount" parameterType="Map" resultType="int">
+        select count(*) from productinfo
+        <where>
+            <if test="num!=null and num!=''">
+                and num = #{num}
+            </if>
+        </where>
+    </select>
+</mapper>

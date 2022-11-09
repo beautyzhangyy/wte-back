@@ -2,7 +2,6 @@ package com.example.demo.api.products.param;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Data
