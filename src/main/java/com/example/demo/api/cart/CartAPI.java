@@ -41,21 +41,23 @@ public class CartAPI {
         Cartinfo cartinfo = new Cartinfo();
         cartinfo.setUserId(cartAddParam.getUserId());
         cartinfo.setProductId(cartAddParam.getProductId());
+        cartinfo.setNum(cartAddParam.getNum());
 
         String createResult = cartService.cartCreate(cartinfo);
         if (ServiceResultEnum.SUCCESS.getResult().equals(createResult)) {
             return ResultGenerator.genSuccessResult();
-        }else if (ServiceResultEnum.CART_REPEAT.getResult().equals(createResult)){
-            String value=cartAddParam.getNum()+" ";
-            if (value.equals(" ")){
-                cartinfo.setNum(1);
-            }else {
-                int number=cartAddParam.getNum();
-                int newNum=number+1;
-                cartinfo.setNum(newNum);
-            }
-            return ResultGenerator.genSuccessResult();
         }
+//        else if (ServiceResultEnum.CART_REPEAT.getResult().equals(createResult)) {
+//            String value = cartAddParam.getNum() + " ";
+//            if (value.equals(" ")) {
+//                cartinfo.setNum(1);
+//            } else {
+//                int number = cartAddParam.getNum();
+//                int newNum = number + 1;
+//                cartinfo.setNum(newNum);
+//                return ResultGenerator.genSuccessResult();
+//            }
+//        }
         return ResultGenerator.genFailResult(createResult);
     }
 

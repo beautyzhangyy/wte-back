@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class CartAddParam {
+public class CartAddParam implements Serializable{
     private int userId;
 
     private int productId;

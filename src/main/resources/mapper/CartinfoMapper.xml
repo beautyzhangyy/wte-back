@@ -57,4 +57,10 @@
             </if>
         </where>
     </select>
+
+    <update id="updateCartNum" parameterType="com.example.demo.entity.Cartinfo">
+        update cartinfo
+        set num = #{num,jdbcType=INTEGER}
+        where cart_id = #{cartId,jdbcType=INTEGER}
+    </update>
 </mapper>

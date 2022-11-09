@@ -27,7 +27,7 @@ public class CartServiceImpl implements CartService {
 //            int num = cartinfo.getNum();
 //            int newNum = num+1;
 //            cartinfo.setNum(newNum);
-            return ServiceResultEnum.CART_REPEAT.getResult();
+            return ServiceResultEnum.SUCCESS.getResult();
         }
         if (cartinfoMapper.insert(cartinfo) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
@@ -46,7 +46,7 @@ public class CartServiceImpl implements CartService {
             return false;
         }
 //        num = num+change;
-//        cartInfo.setNum(num);
+        cartInfo.setNum(updateParam.getNum());
         if (cartinfoMapper.updateCartNum(cartInfo) > 0) {
             return true;
         }
@@ -55,9 +55,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public PageResult getCartProductsUserList(PageQueryUtil pageUtil) {
-        List<Productinfo> productsList = cartinfoMapper.getCartProductsUserList(pageUtil);
+        List<Cartinfo> cartList = cartinfoMapper.getCartProductsUserList(pageUtil);
         int total = cartinfoMapper.getProductsCount(pageUtil);
-        PageResult pageResult = new PageResult(productsList, total, pageUtil.getLimit(), pageUtil.getPage());
+        PageResult pageResult = new PageResult(cartList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 }

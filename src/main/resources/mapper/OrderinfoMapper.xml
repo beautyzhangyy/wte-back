@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.OrderinfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Orderinfo">
+        <id column="order_id" jdbcType="INTEGER" property="cartId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="product_id" jdbcType="INTEGER" property="productId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        order_id,user_id,product_id
+    </sql>
+
+    <insert id="insert" parameterType="com.example.demo.entity.Orderinfo">
+        insert into orderinfo (user_id, product_id)
+        values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER})
+    </insert>
+
+    <select id="selectByPrimaryOrderKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from orderinfo
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCartProductsOrderList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orderinfo
+        <where>
+            <if test="userId!=null and userId!=''">
+                and user_id = #{userId}
+            </if>
+        </where>
+        order by order_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getProductsCount" parameterType="Map" resultType="int">
+        select count(*) from productinfo
+        <where>
+            <if test="userId!=null and userId!=''">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -13,6 +13,4 @@ public class CartUpdateParam implements Serializable{
     private int productId;
 
     private int num;
-
-    private int change;
 }

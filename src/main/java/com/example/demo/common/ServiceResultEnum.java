@@ -5,7 +5,7 @@ public enum ServiceResultEnum {
 
     SUCCESS("success"),
 
-    CART_REPEAT("repeat"),
+    CART_REPEAT("REPEAT"),
 
     DATA_NOT_EXIST("未查询到记录！"),
 
