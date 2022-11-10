@@ -27,7 +27,9 @@ public class CartServiceImpl implements CartService {
 //            int num = cartinfo.getNum();
 //            int newNum = num+1;
 //            cartinfo.setNum(newNum);
-            return ServiceResultEnum.SUCCESS.getResult();
+            int id=cartinfo.getCartId();
+            String strId=String.valueOf(id);
+            return strId;
         }
         if (cartinfoMapper.insert(cartinfo) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();

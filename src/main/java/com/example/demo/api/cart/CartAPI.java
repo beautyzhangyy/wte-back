@@ -38,26 +38,28 @@ public class CartAPI {
 
     @PostMapping("/addCart")
     public Result<String> cartCreate(@RequestBody @Valid CartAddParam cartAddParam) {
-        Cartinfo cartinfo = new Cartinfo();
-        cartinfo.setUserId(cartAddParam.getUserId());
-        cartinfo.setProductId(cartAddParam.getProductId());
-        cartinfo.setNum(cartAddParam.getNum());
+        Cartinfo cartinfoTest = new Cartinfo();
+        cartinfoTest.setUserId(cartAddParam.getUserId());
+        cartinfoTest.setProductId(cartAddParam.getProductId());
+        cartinfoTest.setNum(cartAddParam.getNum());
 
-        String createResult = cartService.cartCreate(cartinfo);
+        String createResult = cartService.cartCreate(cartinfoTest);
         if (ServiceResultEnum.SUCCESS.getResult().equals(createResult)) {
+            Cartinfo cartinfo = new Cartinfo();
+            cartinfo.setUserId(cartAddParam.getUserId());
+            cartinfo.setProductId(cartAddParam.getProductId());
+            cartinfo.setNum(cartAddParam.getNum());
             return ResultGenerator.genSuccessResult();
         }
-//        else if (ServiceResultEnum.CART_REPEAT.getResult().equals(createResult)) {
-//            String value = cartAddParam.getNum() + " ";
-//            if (value.equals(" ")) {
-//                cartinfo.setNum(1);
-//            } else {
-//                int number = cartAddParam.getNum();
-//                int newNum = number + 1;
-//                cartinfo.setNum(newNum);
-//                return ResultGenerator.genSuccessResult();
-//            }
-//        }
+        else if (createResult.matches("[0-9]+")) {
+            int cartId=Integer.parseInt(createResult);
+            CartUpdateParam cartUpdateParam=new CartUpdateParam();
+            cartUpdateParam.setCartId(cartId);
+            cartUpdateParam.setUserId(cartAddParam.getUserId());
+            cartUpdateParam.setProductId(cartAddParam.getProductId());
+            cartUpdateParam.setNum(cartAddParam.getNum());
+            return updateCartNum(cartUpdateParam);
+        }
         return ResultGenerator.genFailResult(createResult);
     }
 

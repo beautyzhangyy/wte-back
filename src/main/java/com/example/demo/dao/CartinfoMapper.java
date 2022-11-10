@@ -14,7 +14,7 @@ import java.util.List;
 public interface CartinfoMapper {
     int insert(Cartinfo record);
 
-    Cartinfo selectByPrimaryCartKey(int userId);
+    Cartinfo selectByPrimaryCartKey(int cartId);
 
     Cartinfo selectByUserIdAndProductId(Cartinfo record);
 
