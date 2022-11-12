@@ -19,7 +19,7 @@ public interface OrderinfoMapper {
 
     Cartinfo selectByPrimaryOrderKey(int orderId);
 
-    List<Orderinfo> getOrderProductsList(PageQueryUtil pageUtil);
+    List<Orderinfo> getCartProductsOrderList(PageQueryUtil pageUtil);
 
     int getProductsCount(PageQueryUtil pageUtil);
 }

@@ -58,6 +58,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void deleteById(int cartId) {
+        cartinfoMapper.deleteById(cartId);
+    }
+
+    @Override
+    public Cartinfo getCart(int cartId) {
+        return cartinfoMapper.selectByPrimaryCartKey(cartId);
+    }
+
+    @Override
+    public Cartinfo getCartInfo(int cartId) {
+        return cartinfoMapper.selectCartInfo(cartId);
+    }
+
+    @Override
     public PageResult getCartProductsUserList(PageQueryUtil pageUtil) {
         List<Cartinfo> cartList = cartinfoMapper.getCartProductsUserList(pageUtil);
         int total = cartinfoMapper.getProductsCount(pageUtil);

@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageResult getOrderProductsList(PageQueryUtil pageUtil) {
-        List<Orderinfo> orderList = orderinfoMapper.getOrderProductsList(pageUtil);
+        List<Orderinfo> orderList = orderinfoMapper.getCartProductsOrderList(pageUtil);
         int total = orderinfoMapper.getProductsCount(pageUtil);
         PageResult pageResult = new PageResult(orderList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;

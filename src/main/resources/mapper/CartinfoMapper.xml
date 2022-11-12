@@ -74,4 +74,20 @@
         from productinfo
         where product_id = #{productId,jdbcType=INTEGER}
     </select>
+
+    <delete id="deleteById">
+        delete from cartinfo where cart_id = #{cartId};
+    </delete>
+
+    <select id="selectCartInfo" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cartinfo
+        <where>
+            <if test="cartId!=null and cartId!=''">
+                and cart_id = #{cartId}
+            </if>
+        </where>
+        order by cart_id desc
+    </select>
 </mapper>

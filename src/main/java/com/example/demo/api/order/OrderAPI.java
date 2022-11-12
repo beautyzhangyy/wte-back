@@ -36,11 +36,19 @@ public class OrderAPI {
     @Resource
     private OrderService orderService;
 
+    @Resource
+    private CartService cartService;
+
     @PostMapping("/addOrder")
     public Result<String> createOrder(@RequestBody @Valid OrderCreateParam orderCreateParam) {
         Orderinfo orderinfo = new Orderinfo();
-        orderinfo.setUserId(orderCreateParam.getUserId());
-        orderinfo.setProductId(orderCreateParam.getProductId());
+        Cartinfo cartinfo = cartService.getCart(orderCreateParam.getCartId());
+        orderinfo.setCartId(orderCreateParam.getCartId());
+        orderinfo.setUserId(cartinfo.getUserId());
+        orderinfo.setProductName(cartinfo.getProductName());
+        orderinfo.setProductPrice(cartinfo.getProductPrice());
+        orderinfo.setProductSPic(cartinfo.getProductSPic());
+        orderinfo.setNum(cartinfo.getNum());
 
         String createResult = orderService.createOrder(orderinfo);
         if (ServiceResultEnum.SUCCESS.getResult().equals(createResult)) {
@@ -50,7 +58,7 @@ public class OrderAPI {
     }
 
     @GetMapping("/OrderProductsList")
-    public Result<PageResult<List<Productinfo>>> orderProductsList(@RequestParam(required = false) Integer pageNumber, @RequestParam("userId") int userId) {
+    public Result<PageResult<List<Orderinfo>>> orderProductsList(@RequestParam(required = false) Integer pageNumber, @RequestParam("userId") int userId) {
         Map params = new HashMap(8);
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;

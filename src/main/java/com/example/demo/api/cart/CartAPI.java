@@ -95,7 +95,7 @@ public class CartAPI {
     }
 
     @GetMapping("/CartProductsUserList")
-    public Result<PageResult<List<Productinfo>>> cartProductsUserList(@RequestParam(required = false) Integer pageNumber, @RequestParam("userId") int userId) {
+    public Result<PageResult<List<Cartinfo>>> cartProductsUserList(@RequestParam(required = false) Integer pageNumber, @RequestParam("userId") int userId) {
         Map params = new HashMap(8);
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;
@@ -103,10 +103,21 @@ public class CartAPI {
         params.put("page", pageNumber);
         params.put("limit", Constants.PRODUCT_ALL_UP_NUMBER);
         //搜索上架状态下的商品
-        params.put("num", Constants.CART_NUM_NULL);
         params.put("userId", userId);
         //封装商品数据
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(cartService.getCartProductsUserList(pageUtil));
+    }
+
+    @GetMapping("/delete")
+    public Result<String> deleteById(@RequestParam("cartId") int cartId) {
+        cartService.deleteById(cartId);
+        return ResultGenerator.genSuccessResult("删除成功");
+    }
+
+    @GetMapping("/getCartInfo")
+    public Result<String> getCartInfo(@RequestParam("cartId") int cartId) {
+        Cartinfo cartinfo = cartService.getCartInfo(cartId);
+        return ResultGenerator.genSuccessResult(cartinfo);
     }
 }

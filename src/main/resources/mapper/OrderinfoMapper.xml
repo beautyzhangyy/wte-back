@@ -3,17 +3,22 @@
 
 <mapper namespace="com.example.demo.dao.OrderinfoMapper">
     <resultMap id="BaseResultMap" type="com.example.demo.entity.Orderinfo">
-        <id column="order_id" jdbcType="INTEGER" property="cartId" />
+        <id column="order_id" jdbcType="INTEGER" property="orderId" />
+        <result column="cart_id" jdbcType="INTEGER" property="cartId" />
         <result column="user_id" jdbcType="INTEGER" property="userId" />
-        <result column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="product_price" jdbcType="FLOAT" property="productPrice" />
+        <result column="product_s_pic" jdbcType="VARCHAR" property="productSPic" />
     </resultMap>
     <sql id="Base_Column_List">
-        order_id,user_id,product_id
+        order_id, cart_id, user_id, num, product_name, product_price, product_s_pic
     </sql>
 
     <insert id="insert" parameterType="com.example.demo.entity.Orderinfo">
-        insert into orderinfo (user_id, product_id)
-        values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER})
+        insert into orderinfo (cart_id, user_id, num, product_name, product_price, product_s_pic)
+        values (#{cartId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+                #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=FLOAT},#{productSPic,jdbcType=VARCHAR})
     </insert>
 
     <select id="selectByPrimaryOrderKey" parameterType="int" resultMap="BaseResultMap">
@@ -41,9 +46,16 @@
     <select id="getProductsCount" parameterType="Map" resultType="int">
         select count(*) from productinfo
         <where>
-            <if test="userId!=null and userId!=''">
-                and user_id = #{userId}
+            <if test="orderId!=null and orderId!=''">
+                and order_id = #{orderId}
             </if>
         </where>
+    </select>
+
+    <select id="selectByPrimaryCartKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cartinfo
+        where cart_id = #{cartId,jdbcType=INTEGER}
     </select>
 </mapper>
