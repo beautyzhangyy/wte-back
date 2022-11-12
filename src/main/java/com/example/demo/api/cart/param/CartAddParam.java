@@ -11,4 +11,10 @@ public class CartAddParam implements Serializable{
     private int productId;
 
     private int num;
+
+    private String productName;
+
+    private float productPrice;
+
+    private String productSPic;
 }

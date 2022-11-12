@@ -7,9 +7,12 @@
         <result column="user_id" jdbcType="INTEGER" property="userId" />
         <result column="product_id" jdbcType="INTEGER" property="productId" />
         <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="product_price" jdbcType="FLOAT" property="productPrice" />
+        <result column="product_s_pic" jdbcType="VARCHAR" property="productSPic" />
     </resultMap>
     <sql id="Base_Column_List">
-        cart_id,user_id,product_id,num
+        cart_id, user_id, product_id, num, product_name, product_price, product_s_pic
     </sql>
 
     <select id="selectByPrimaryCartKey" parameterType="int" resultMap="BaseResultMap">
@@ -27,8 +30,9 @@
     </select>
 
     <insert id="insert" parameterType="com.example.demo.entity.Cartinfo">
-        insert into cartinfo (user_id, product_id, num)
-        values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER})
+        insert into cartinfo (user_id, product_id, num, product_name, product_price, product_s_pic)
+        values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+                #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=FLOAT},#{productSPic,jdbcType=VARCHAR})
     </insert>
 
     <select id="getCartProductsUserList" parameterType="Map" resultMap="BaseResultMap">
@@ -63,4 +67,11 @@
         set num = #{num,jdbcType=INTEGER}
         where cart_id = #{cartId,jdbcType=INTEGER}
     </update>
+
+    <select id="selectByPrimaryProductKey" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from productinfo
+        where product_id = #{productId,jdbcType=INTEGER}
+    </select>
 </mapper>

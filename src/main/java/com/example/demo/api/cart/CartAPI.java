@@ -39,16 +39,19 @@ public class CartAPI {
     @Resource
     private CartService cartService;
 
-//    @Resource
-//    private ProductService productService;
+    @Resource
+    private ProductService productService;
 
     @PostMapping("/addCart")
     public Result<String> cartCreate(@RequestBody @Valid CartAddParam cartAddParam) {
         Cartinfo cartinfoTest = new Cartinfo();
-//        Productinfo productinfo = productService.getByProductId(cartAddParam.getProductId());
         cartinfoTest.setUserId(cartAddParam.getUserId());
         cartinfoTest.setProductId(cartAddParam.getProductId());
         cartinfoTest.setNum(cartAddParam.getNum());
+        Productinfo productinfo = productService.getProduct(cartAddParam.getProductId());
+        cartinfoTest.setProductName(productinfo.getProductName());
+        cartinfoTest.setProductPrice(productinfo.getProductPrice());
+        cartinfoTest.setProductSPic(productinfo.getProductSPic());
 
         String createResult = cartService.cartCreate(cartinfoTest);
         if (ServiceResultEnum.SUCCESS.getResult().equals(createResult)) {
@@ -56,9 +59,9 @@ public class CartAPI {
             cartinfo.setUserId(cartAddParam.getUserId());
             cartinfo.setProductId(cartAddParam.getProductId());
             cartinfo.setNum(cartAddParam.getNum());
-//            cartinfo.setProductName(productinfo.getProductName());
-//            cartinfo.setProductPrice(productinfo.getProductPrice());
-//            cartinfo.setProductSPic(productinfo.getProductSPic());
+            cartinfo.setProductName(productinfo.getProductName());
+            cartinfo.setProductPrice(productinfo.getProductPrice());
+            cartinfo.setProductSPic(productinfo.getProductSPic());
             return ResultGenerator.genSuccessResult();
         }
         else if (createResult.length()>7) {

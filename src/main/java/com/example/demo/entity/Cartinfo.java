@@ -10,11 +10,11 @@ public class Cartinfo {
 
     private int productId;
 
-//    private String productName;
-//
-//    private float productPrice;
-//
-//    private String productSPic;
+    private String productName;
+
+    private float productPrice;
+
+    private String productSPic;
 
     private int num;
 }
