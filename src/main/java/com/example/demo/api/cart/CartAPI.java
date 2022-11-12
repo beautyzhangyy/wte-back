@@ -9,6 +9,7 @@ import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Cartinfo;
 import com.example.demo.entity.Productinfo;
 import com.example.demo.service.CartService;
+import com.example.demo.service.ProductService;
 import com.example.demo.service.SellerService;
 import com.example.demo.util.PageQueryUtil;
 import com.example.demo.util.PageResult;
@@ -21,9 +22,11 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 购物车
@@ -36,9 +39,13 @@ public class CartAPI {
     @Resource
     private CartService cartService;
 
+//    @Resource
+//    private ProductService productService;
+
     @PostMapping("/addCart")
     public Result<String> cartCreate(@RequestBody @Valid CartAddParam cartAddParam) {
         Cartinfo cartinfoTest = new Cartinfo();
+//        Productinfo productinfo = productService.getByProductId(cartAddParam.getProductId());
         cartinfoTest.setUserId(cartAddParam.getUserId());
         cartinfoTest.setProductId(cartAddParam.getProductId());
         cartinfoTest.setNum(cartAddParam.getNum());
@@ -49,16 +56,27 @@ public class CartAPI {
             cartinfo.setUserId(cartAddParam.getUserId());
             cartinfo.setProductId(cartAddParam.getProductId());
             cartinfo.setNum(cartAddParam.getNum());
+//            cartinfo.setProductName(productinfo.getProductName());
+//            cartinfo.setProductPrice(productinfo.getProductPrice());
+//            cartinfo.setProductSPic(productinfo.getProductSPic());
             return ResultGenerator.genSuccessResult();
         }
-        else if (createResult.matches("[0-9]+")) {
-            int cartId=Integer.parseInt(createResult);
+        else if (createResult.length()>7) {
+            String idAndNum=createResult.substring(7);
+            List<Integer> list= Arrays.stream(idAndNum.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+            int cartId=list.get(0);
+            int cartNum=list.get(1);
             CartUpdateParam cartUpdateParam=new CartUpdateParam();
             cartUpdateParam.setCartId(cartId);
             cartUpdateParam.setUserId(cartAddParam.getUserId());
             cartUpdateParam.setProductId(cartAddParam.getProductId());
-            cartUpdateParam.setNum(cartAddParam.getNum());
-            return updateCartNum(cartUpdateParam);
+            cartUpdateParam.setNum(cartAddParam.getNum()+cartNum);
+            Boolean flag = cartService.updateCartNum(cartUpdateParam);
+            if (flag) {
+                return ResultGenerator.genSuccessResult("修改成功");
+            } else {
+                return ResultGenerator.genFailResult("修改失败");
+            }
         }
         return ResultGenerator.genFailResult(createResult);
     }

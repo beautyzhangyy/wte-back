@@ -5,6 +5,7 @@ import com.example.demo.api.products.param.ProductUploadParam;
 import com.example.demo.common.Constants;
 import com.example.demo.common.ServiceResultEnum;
 import com.example.demo.entity.Productinfo;
+import com.example.demo.entity.Userinfo;
 import com.example.demo.service.ProductService;
 import com.example.demo.util.PageQueryUtil;
 import com.example.demo.util.PageResult;
@@ -111,7 +112,7 @@ public class ProductAPI {
     }
 
     @GetMapping("/ProductsSellerList")
-    public Result<PageResult<List<Productinfo>>> productsSellerList(@RequestParam(required = false) Integer pageNumber,@RequestParam("sellerId") int sellerId) {
+    public Result<PageResult<List<Productinfo>>> productsSellerList(@RequestParam(required = false) Integer pageNumber, @RequestParam("sellerId") int sellerId) {
         Map params = new HashMap(8);
         if (pageNumber == null || pageNumber < 1) {
             pageNumber = 1;
@@ -125,5 +126,11 @@ public class ProductAPI {
         //封装商品数据
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         return ResultGenerator.genSuccessResult(productService.getProductsSellerList(pageUtil));
+    }
+
+    @GetMapping("/getProductInfo")
+    public Result<String> getProductInfo(@RequestParam("productId") int productId) {
+        Productinfo productinfo = productService.getByProductId(productId);
+        return ResultGenerator.genSuccessResult(productinfo);
     }
 }

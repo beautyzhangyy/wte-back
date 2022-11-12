@@ -15,6 +15,8 @@ public interface ProductService {
 
     Productinfo getByProductId(int productId);
 
+    Productinfo getProduct(int productId);
+
     Boolean uploadProductSPic(Productinfo productInfo);
 
     PageResult getProductsList(PageQueryUtil pageUtil);

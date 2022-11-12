@@ -117,12 +117,12 @@
 
     <update id="updateProductInfo" parameterType="com.example.demo.entity.Productinfo">
         update productinfo
-        set product_name = #{product_name,jdbcType=VARCHAR},
-            product_price = #{product_price,jdbcType=FLOAT},
-            product_intro = #{product_intro,jdbcType=VARCHAR},
-            product_status = #{product_status,jdbcType=INTEGER},
-            product_inventory = #{product_inventory,jdbcType=INTEGER},
-        where product_id = #{product_id,jdbcType=INTEGER}
+        set product_name = #{productName,jdbcType=VARCHAR},
+            product_price = #{productPrice,jdbcType=FLOAT},
+            product_intro = #{productIntro,jdbcType=VARCHAR},
+            product_status = #{productStatus,jdbcType=INTEGER},
+            product_inventory = #{productInventory,jdbcType=INTEGER}
+        where product_id = #{productId,jdbcType=INTEGER}
     </update>
 
     <update id="uploadProductSPic" parameterType="com.example.demo.entity.Productinfo">
@@ -131,4 +131,15 @@
         where product_name = #{productName,jdbcType=VARCHAR} and seller_id = #{sellerId,jdbcType=INTEGER}
     </update>
 
+    <select id="selectProductInfo" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from productinfo
+        <where>
+            <if test="productId!=null and productId!=''">
+                and product_id = #{productId}
+            </if>
+        </where>
+        order by product_id desc
+    </select>
 </mapper>
