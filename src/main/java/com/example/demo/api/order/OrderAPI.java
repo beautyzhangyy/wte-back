@@ -21,9 +21,8 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 订单
@@ -41,20 +40,22 @@ public class OrderAPI {
 
     @PostMapping("/addOrder")
     public Result<String> createOrder(@RequestBody @Valid OrderCreateParam orderCreateParam) {
-        Orderinfo orderinfo = new Orderinfo();
-        Cartinfo cartinfo = cartService.getCart(orderCreateParam.getCartId());
-        orderinfo.setCartId(orderCreateParam.getCartId());
-        orderinfo.setUserId(cartinfo.getUserId());
-        orderinfo.setProductName(cartinfo.getProductName());
-        orderinfo.setProductPrice(cartinfo.getProductPrice());
-        orderinfo.setProductSPic(cartinfo.getProductSPic());
-        orderinfo.setNum(cartinfo.getNum());
-
-        String createResult = orderService.createOrder(orderinfo);
-        if (ServiceResultEnum.SUCCESS.getResult().equals(createResult)) {
-            return ResultGenerator.genSuccessResult();
+        List<Integer> list= Arrays.stream(orderCreateParam.getCartIds().split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        for (int i = 0; i < list.size(); i++) {
+            Orderinfo orderinfo = new Orderinfo();
+            Cartinfo cartinfo = cartService.getCart(list.get(i));
+            orderinfo.setCartId(list.get(i));
+            orderinfo.setUserId(cartinfo.getUserId());
+            orderinfo.setProductName(cartinfo.getProductName());
+            orderinfo.setProductPrice(cartinfo.getProductPrice());
+            orderinfo.setProductSPic(cartinfo.getProductSPic());
+            orderinfo.setNum(cartinfo.getNum());
+            String createResult = orderService.createOrder(orderinfo);
+            if (!Objects.equals(ServiceResultEnum.SUCCESS.getResult(), createResult)){
+                return ResultGenerator.genFailResult(createResult);
+            }
         }
-        return ResultGenerator.genFailResult(createResult);
+         return ResultGenerator.genSuccessResult();
     }
 
     @GetMapping("/OrderProductsList")

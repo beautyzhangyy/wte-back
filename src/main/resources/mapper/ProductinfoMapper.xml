@@ -142,4 +142,10 @@
         </where>
         order by product_id desc
     </select>
+
+    <update id="updateInventory" parameterType="com.example.demo.entity.Productinfo">
+        update productinfo
+        set product_inventory = #{productInventory,jdbcType=INTEGER}
+        where product_id = #{productId,jdbcType=INTEGER}
+    </update>
 </mapper>

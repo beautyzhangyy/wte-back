@@ -22,10 +22,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -116,8 +113,13 @@ public class CartAPI {
     }
 
     @GetMapping("/getCartInfo")
-    public Result<String> getCartInfo(@RequestParam("cartId") int cartId) {
-        Cartinfo cartinfo = cartService.getCartInfo(cartId);
-        return ResultGenerator.genSuccessResult(cartinfo);
+    public Result<PageResult<List<Cartinfo>>> getCartInfo(@RequestParam("cartIds") String cartIds) {
+        List<Cartinfo> cartinfoList = new ArrayList<>();
+        List<Integer> list= Arrays.stream(cartIds.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        for (int i = 0; i < list.size(); i++) {
+            Cartinfo cartinfo = cartService.getCartInfo(list.get(i));
+            cartinfoList.add(cartinfo);
+        }
+        return ResultGenerator.genSuccessResult(cartinfoList);
     }
 }

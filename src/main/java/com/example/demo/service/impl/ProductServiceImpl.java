@@ -60,6 +60,19 @@ public class ProductServiceImpl implements ProductService {
         return productinfoMapper.selectByPrimaryProductKey(productId);
     }
 
+    @Override
+    public Boolean updateInventory(int productId,int productInventory) {
+        Productinfo productInfo = productinfoMapper.selectProductInfo(productId);
+        if (productInfo == null) {
+            WteException.fail(ServiceResultEnum.DATA_NOT_EXIST.getResult());
+            return false;
+        }
+        productInfo.setProductInventory(productInventory);
+        if (productinfoMapper.updateProductInfo(productInfo) > 0) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public Boolean uploadProductSPic(Productinfo productInfo) {

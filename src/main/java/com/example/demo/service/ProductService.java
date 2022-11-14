@@ -17,6 +17,8 @@ public interface ProductService {
 
     Productinfo getProduct(int productId);
 
+    Boolean updateInventory(int productId,int productInventory);
+
     Boolean uploadProductSPic(Productinfo productInfo);
 
     PageResult getProductsList(PageQueryUtil pageUtil);

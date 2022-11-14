@@ -133,4 +133,16 @@ public class ProductAPI {
         Productinfo productinfo = productService.getByProductId(productId);
         return ResultGenerator.genSuccessResult(productinfo);
     }
+
+    @GetMapping ("/updateInventory")
+    public Result<String> updateInventory(@RequestParam("productId") int productId,@RequestParam("num") int num) {
+        Productinfo productinfo = productService.getByProductId(productId);
+        int newInventory = productinfo.getProductInventory()-num;
+        Boolean flag = productService.updateInventory(productId,newInventory);
+        if (flag) {
+            return ResultGenerator.genSuccessResult("修改成功");
+        } else {
+            return ResultGenerator.genFailResult("修改失败");
+        }
+    }
 }

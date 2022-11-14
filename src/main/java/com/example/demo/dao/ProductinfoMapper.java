@@ -17,6 +17,8 @@ public interface ProductinfoMapper {
 
     Productinfo selectProductInfo(int productId);
 
+    int updateInventory(int productId,int productInventory);
+
     Productinfo selectByProductNameAndSellerId(Productinfo record);
 
     List<Productinfo> getProductsList(PageQueryUtil pageUtil);   // 获得指定页数、数量的商品数据
